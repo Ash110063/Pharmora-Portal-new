@@ -195,24 +195,32 @@ export default function Page() {
 
       {/* ---------------- Sidebar ---------------- */}
       <Sidebar collapsible="icon">
-        <SidebarHeader className="p-3 pb-1">
-          <div className="flex items-center gap-2.5 rounded-lg p-1 group-data-[collapsible=icon]:p-0">
+        <SidebarHeader className="gap-3 p-3">
+          <div className="flex items-center gap-2.5 px-1 pt-1 group-data-[collapsible=icon]:px-0">
             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary font-display text-lg font-semibold text-sidebar-primary-foreground">
               p
             </span>
-            <div className="grid flex-1 leading-tight group-data-[collapsible=icon]:hidden">
+            <div className="grid leading-tight group-data-[collapsible=icon]:hidden">
               <span className="font-display text-lg font-semibold text-sidebar-accent-foreground">pharmora</span>
-              <span className="flex items-center gap-1.5 text-xs text-sidebar-foreground/70">
-                <Factory className="size-3" /> Manufacturing HQ · Demo
-              </span>
+              <span className="text-[11px] tracking-wide text-sidebar-foreground/70 uppercase">Manufacturing ERP</span>
             </div>
+          </div>
+          <div className="flex items-center gap-2.5 rounded-lg bg-sidebar-accent p-2.5 group-data-[collapsible=icon]:hidden">
+            <span className="flex size-8 items-center justify-center rounded-md bg-sidebar text-sidebar-primary">
+              <Factory className="size-4" />
+            </span>
+            <div className="grid flex-1 leading-tight">
+              <span className="text-sm font-medium text-sidebar-accent-foreground">Manufacturing HQ</span>
+              <span className="text-xs text-sidebar-foreground/70">Demo workspace</span>
+            </div>
+            <Badge variant="outline" className="border-sidebar-border text-sidebar-foreground">PRO</Badge>
           </div>
         </SidebarHeader>
 
         <SidebarContent className="gap-0">
           {groups.map((g) => (
             <SidebarGroup key={g.label} className="py-0.5">
-              <SidebarGroupLabel className="h-6 text-sidebar-foreground/60">{g.label}</SidebarGroupLabel>
+              <SidebarGroupLabel className="h-7 text-sidebar-foreground/60">{g.label}</SidebarGroupLabel>
               <SidebarMenu>
                 {g.keys.map((k) => {
                   const Icon = icons[k];
