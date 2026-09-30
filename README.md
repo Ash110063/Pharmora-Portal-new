@@ -34,12 +34,18 @@ Use one Node server process with persistent disk for this demo. This file store 
 
 ## Source map
 
-- `app/page.tsx`: all module screens, tables, forms, detail panels and navigation.
-- `app/globals.css`: centralized theme tokens, light/dark palettes and component styling.
+- `app/page.tsx`: all module screens, tables, forms, detail sheet and navigation, built from shadcn/ui components.
+- `components/erp/parts.tsx`: shared ERP pieces — status badge, select picker, metric card, records table, form field.
+- `components/ui/*`: shadcn/ui primitives (button, card, badge, input, textarea, label, select, table, tabs, sheet, dialog, sidebar, breadcrumb, avatar, progress, tooltip, sonner…).
+- `app/globals.css`: the Pharmora palette mapped onto shadcn theme tokens (light + dark), plus workflow status tokens (`bg-status-ok`, `text-status-warn-foreground`, …).
 - `components/theme-toggle.tsx`: saved appearance preference.
 - `lib/erp.ts`: module definitions, seed records and workflow rules.
 - `app/api/erp/route.ts`: version checks and local persistent demo storage.
 - `tests/workflow.test.ts`: receipt, quality, production, dispatch and recall checks.
+
+### Theming
+
+Colours live only in `app/globals.css` as shadcn tokens (`--primary`, `--card`, `--sidebar`, …). Components use Tailwind classes such as `bg-card` or `text-muted-foreground`, never hex values, so a palette change is a one-file edit. Dark mode follows `<html data-theme="dark">`, set by next-themes.
 
 ## Prototype boundaries
 

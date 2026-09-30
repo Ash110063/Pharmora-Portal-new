@@ -1,0 +1,220 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+/* next-themes writes the resolved theme to <html data-theme="…">, so dark: follows it (system default included). */
+@custom-variant dark (&:is([data-theme="dark"], [data-theme="dark"] *));
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Workflow status colours (Pharmora extension to the shadcn token set) */
+  --color-status-ok: var(--status-ok);
+  --color-status-ok-foreground: var(--status-ok-foreground);
+  --color-status-ok-dot: var(--status-ok-dot);
+  --color-status-warn: var(--status-warn);
+  --color-status-warn-foreground: var(--status-warn-foreground);
+  --color-status-warn-dot: var(--status-warn-dot);
+  --color-status-active: var(--status-active);
+  --color-status-active-foreground: var(--status-active-foreground);
+  --color-status-active-dot: var(--status-active-dot);
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-foreground: var(--status-neutral-foreground);
+  --color-status-neutral-dot: var(--status-neutral-dot);
+  --color-status-shipped: var(--status-shipped);
+  --color-status-shipped-foreground: var(--status-shipped-foreground);
+  --color-status-shipped-dot: var(--status-shipped-dot);
+  --color-status-bad: var(--status-bad);
+  --color-status-bad-foreground: var(--status-bad-foreground);
+  --color-status-bad-dot: var(--status-bad-dot);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", "Arial Narrow", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/*
+  Pharmora palette → shadcn tokens.
+  Teal family:  #054340 #0A5650 #0B4A44 #0B524C #0E5D55 #15695F #1E7A63
+  Leaf family:  #7CC99A #86CFA2 #86D06A #96DC6E #9FD8B3 #A0D26E #A9DDB4 #B6E59A #B8E28C #BFE8A9 #C3EE9F #C8EEAA
+  Greys:        #4B5754 #4E5A57 #56605D #5B6663 #7C8784
+  Light fills:  #DCEBD8 #DDEBD9 #DDEFD8 #E2E6E1 #E3ECE2 #E4E8E3 #E4EFD6 #E9EAE0 #E9F0E8 #EDEDE3 #EFEEE6 #F0F9EC #F3F8F1 #F4F5F2 #F9F8F4
+  Amber:        #8A6417 #EAE7B8 #EFEAB9 #F6EBC9
+  Destructive red is the one colour outside the palette; failures and recalls need an unambiguous signal.
+*/
+:root {
+  --radius: 0.625rem;
+
+  --background: #EDEDE3;
+  --foreground: #054340;
+  --card: #F9F8F4;
+  --card-foreground: #054340;
+  --popover: #F9F8F4;
+  --popover-foreground: #054340;
+  --primary: #0E5D55;
+  --primary-foreground: #F9F8F4;
+  --secondary: #E9F0E8;
+  --secondary-foreground: #0B4A44;
+  --muted: #EFEEE6;
+  --muted-foreground: #5B6663;
+  --accent: #DDEFD8;
+  --accent-foreground: #054340;
+  --destructive: #B42318;
+  --border: #E2E6E1;
+  --input: #D3D9D1;
+  --ring: #1E7A63;
+
+  --chart-1: #0E5D55;
+  --chart-2: #86D06A;
+  --chart-3: #8A6417;
+  --chart-4: #1E7A63;
+  --chart-5: #A9DDB4;
+
+  --sidebar: #054340;
+  --sidebar-foreground: #DCEBD8;
+  --sidebar-primary: #96DC6E;
+  --sidebar-primary-foreground: #054340;
+  --sidebar-accent: #0B524C;
+  --sidebar-accent-foreground: #F3F8F1;
+  --sidebar-border: #0A5650;
+  --sidebar-ring: #86D06A;
+
+  --status-ok: #DDEFD8;
+  --status-ok-foreground: #0B524C;
+  --status-ok-dot: #1E7A63;
+  --status-warn: #F6EBC9;
+  --status-warn-foreground: #8A6417;
+  --status-warn-dot: #8A6417;
+  --status-active: #E4EFD6;
+  --status-active-foreground: #0E5D55;
+  --status-active-dot: #86D06A;
+  --status-neutral: #EFEEE6;
+  --status-neutral-foreground: #4E5A57;
+  --status-neutral-dot: #7C8784;
+  --status-shipped: #E3ECE2;
+  --status-shipped-foreground: #4B5754;
+  --status-shipped-dot: #56605D;
+  --status-bad: #FDECEA;
+  --status-bad-foreground: #B42318;
+  --status-bad-dot: #D92D20;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: #032D2A;
+  --foreground: #F3F8F1;
+  --card: #054340;
+  --card-foreground: #F3F8F1;
+  --popover: #054340;
+  --popover-foreground: #F3F8F1;
+  --primary: #96DC6E;
+  --primary-foreground: #054340;
+  --secondary: #0B4A44;
+  --secondary-foreground: #DCEBD8;
+  --muted: #0B4A44;
+  --muted-foreground: #A9DDB4;
+  --accent: #0B524C;
+  --accent-foreground: #C8EEAA;
+  --destructive: #F97066;
+  --border: #0B524C;
+  --input: #15695F;
+  --ring: #86D06A;
+
+  --chart-1: #96DC6E;
+  --chart-2: #1E7A63;
+  --chart-3: #EFEAB9;
+  --chart-4: #A9DDB4;
+  --chart-5: #86CFA2;
+
+  --sidebar: #022321;
+  --sidebar-foreground: #BFE8A9;
+  --sidebar-primary: #96DC6E;
+  --sidebar-primary-foreground: #054340;
+  --sidebar-accent: #0B4A44;
+  --sidebar-accent-foreground: #F3F8F1;
+  --sidebar-border: #0B4A44;
+  --sidebar-ring: #86D06A;
+
+  --status-ok: #0B524C;
+  --status-ok-foreground: #B6E59A;
+  --status-ok-dot: #86D06A;
+  --status-warn: #3B2E0E;
+  --status-warn-foreground: #EFEAB9;
+  --status-warn-dot: #EAE7B8;
+  --status-active: #15695F;
+  --status-active-foreground: #C8EEAA;
+  --status-active-dot: #96DC6E;
+  --status-neutral: #0A5650;
+  --status-neutral-foreground: #DCEBD8;
+  --status-neutral-dot: #A9DDB4;
+  --status-shipped: #0B4A44;
+  --status-shipped-foreground: #E3ECE2;
+  --status-shipped-dot: #9FD8B3;
+  --status-bad: #4A1512;
+  --status-bad-foreground: #FCA89F;
+  --status-bad-dot: #F97066;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+  }
+}
