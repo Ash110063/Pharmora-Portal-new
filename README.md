@@ -28,9 +28,15 @@ Open **Prototype guide** for the end-to-end walkthrough. The moon/sun control sw
 
 ## Data and deployment
 
-The downloadable edition runs directly on Next.js App Router. Demo records are initialized on first access and saved to `data/workspace.json`. Set `PHARMORA_DATA_DIR` to a persistent writable directory if desired. This local file adapter replaces the hosted prototype's Cloudflare D1 adapter; the UI and workflow engine are shared. Existing hosted workspace records are not included.
+All data is demonstration data from `seed()` in `lib/erp.ts`, served by the app's own API at `/api/erp` (GET loads the workspace, POST applies an action). The API picks its storage automatically:
 
-Use one Node server process with persistent disk for this demo. This file store is not suitable for stateless/serverless or multi-instance deployments. Replace the API storage adapter with a transactional database for those environments. Back up the data directory to retain records; deleting it resets the local demo on next access.
+1. **Redis (recommended on Vercel).** If `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or Vercel's `KV_REST_API_URL` + `KV_REST_API_TOKEN`) are set, the workspace is stored in Redis. Changes persist and every visitor sees the same records. On Vercel: project → Storage → Create → Upstash Redis → connect to this project, then redeploy.
+2. **File.** Otherwise it uses `data/workspace.json` locally, or `/tmp` on Vercel. Set `PHARMORA_DATA_DIR` to choose the folder. On Vercel `/tmp` works but resets whenever the server instance is recycled, so edits are temporary.
+3. **Memory.** If the file can't be written at all, the workspace is kept in memory so the demo still loads.
+
+Delete the Redis key `pharmora:workspace` (or the data file) to reset to the demo seed.
+
+`vercel.json` turns off automatic deployments from Git pushes; deploy manually from the Vercel dashboard or with `vercel --prod`.
 
 ## Source map
 
